@@ -15,16 +15,21 @@ public class ProcessFile {
     }
     
     public boolean SortWords(WordsBST words, String filePath) {
-      try {
-          File myObj = new File(filePath);
-          Scanner myReader = new Scanner(myObj);
-          while (myReader.hasNext()) {
-              String data = myReader.next();
-              words.insert(data);
+        try {
+            File myObj = new File(filePath);
+            Scanner scanner = new Scanner(myObj);
+            scanner.useDelimiter("[\\s!,.?\"\\[\\]()\\-;:'`~@#$%^&*_+=|<>/\\\\]+");
+            while (scanner.hasNext()) {
+                String data = scanner.next();
+                // Remove non-alphabetic characters from the beginning and end of the word, but keep apostrophes within words
+                data = data.replaceAll("^[^a-zA-Z']+|[^a-zA-Z']+$", "").toLowerCase();
+                if (!data.isEmpty()) {
+                    words.insert(data);
+                }
             }
-            myReader.close();
+            scanner.close();
             return true;
-        } catch (FileNotFoundException e) {
+          } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
             return false;
@@ -34,12 +39,12 @@ public class ProcessFile {
     public void ReadText(WordsBST words, String filePath) {
         try {
             File myObj = new File(filePath);
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
+            Scanner scanner = new Scanner(myObj);
+            while (scanner.hasNextLine()) {
+                String data = scanner.nextLine();
                 System.out.println(data);
             }
-            myReader.close();
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();

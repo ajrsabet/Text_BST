@@ -14,7 +14,7 @@ public class WordsBST {
 
     private Word insertRec(Word root, String word) {
         // remove punctuation but keep apostrophe for contractions and possessives
-        word = word.replaceAll("[^a-zA-Z'-]", "").toLowerCase();
+        // word = word.replaceAll("[^a-zA-Z'-]", "").toLowerCase();
 
         
         if (root == null) {
